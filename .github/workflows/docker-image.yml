@@ -1,0 +1,34 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          repository: xamma/KubeS3
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: master
+      
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build and push backend
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          platforms: linux/amd64
+          file: ./Dockerfile
+          push: true
+          tags: ghcr.io/xamma/apikube:latest

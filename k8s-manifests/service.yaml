@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apikube-srv
+  namespace: apikube
+spec:
+  selector:
+    app: apikube
+  type: ClusterIP
+  ports:
+  - name: backend
+    protocol: TCP
+    port: 8000
+    targetPort: 8000

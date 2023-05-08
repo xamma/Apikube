@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apikube-configmap
+  namespace: apikube
+data:
+  API_PORT: "8000"
+  CUSTOM_MESSAGE: "Running in default Env."

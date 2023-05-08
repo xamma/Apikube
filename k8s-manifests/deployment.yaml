@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apikube-depl
+  namespace: apikube
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: apikube
+  template:
+    metadata:
+      labels:
+        app: apikube
+    spec:
+      containers:
+      - name: backend-container
+        image: ghcr.io/xamma/apikube:latest
+        imagePullPolicy: Always
+        env:
+          - name: CUSTOM_MESSAGE
+            valueFrom:
+              configMapKeyRef:
+                name: apikube-configmap
+                key: CUSTOM_MESSAGE
+          - name: API_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: apikube-configmap
+                key: API_PORT
+        ports:
+        - containerPort: 8000
+      restartPolicy: Always
