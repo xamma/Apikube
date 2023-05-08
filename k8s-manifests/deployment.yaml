@@ -18,17 +18,9 @@ spec:
       - name: backend-container
         image: ghcr.io/xamma/apikube:latest
         imagePullPolicy: Always
-        env:
-          - name: CUSTOM_MESSAGE
-            valueFrom:
-              configMapKeyRef:
-                name: apikube-configmap
-                key: CUSTOM_MESSAGE
-          - name: API_PORT
-            valueFrom:
-              configMapKeyRef:
-                name: apikube-configmap
-                key: API_PORT
+        envFrom:
+        - configMapRef:
+            name: apikube-configmap
         ports:
         - containerPort: 8000
       restartPolicy: Always
