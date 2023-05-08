@@ -29,6 +29,5 @@ jobs:
         with:
           context: .
           platforms: linux/amd64
-          file: ./Dockerfile
           push: true
           tags: ghcr.io/xamma/apikube:latest
