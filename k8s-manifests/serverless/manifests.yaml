@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: apikube
+  name: techdemo
 
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: apikube-configmap
-  namespace: apikube
+  namespace: techdemo
 data:
   API_PORT: "8000"
   # CUSTOM_MESSAGE: "Running in default Env."
@@ -19,7 +19,7 @@ apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
   name: apikube
-  namespace: apikube
+  namespace: techdemo
 spec:
   template:
     spec:

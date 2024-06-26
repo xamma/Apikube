@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: apikube-depl
-  namespace: apikube
+  namespace: techdemo
 spec:
   replicas: 3
   selector:

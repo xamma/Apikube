@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: apikube-srv
-  namespace: apikube
+  namespace: techdemo
 spec:
   selector:
     app: apikube
