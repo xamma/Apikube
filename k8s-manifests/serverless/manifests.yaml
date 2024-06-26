@@ -12,7 +12,7 @@ metadata:
   namespace: apikube
 data:
   API_PORT: "8000"
-  CUSTOM_MESSAGE: "Running in default Env."
+  # CUSTOM_MESSAGE: "Running in default Env."
 
 ---
 apiVersion: serving.knative.dev/v1
@@ -31,9 +31,9 @@ spec:
           # envFrom:
           #   - secretRef: 
           #       name: thumbsnail-secret
-          # env:
-          #   - name: TARGET
-          #     value: World
-          envFrom:
-            - configMapRef:
-                name: apikube-configmap
+          env:
+            - name: CUSTOM_MESSAGE
+              value: Running in default Env.
+          # envFrom:
+          #   - configMapRef:
+          #       name: apikube-configmap
