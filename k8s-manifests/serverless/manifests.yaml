@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: apikube
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apikube-configmap
+  namespace: apikube
+data:
+  API_PORT: "8000"
+  CUSTOM_MESSAGE: "Running in default Env."
+
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: apikube
+  namespace: apikube
+spec:
+  template:
+    spec:
+      containers:
+        - image: ghcr.io/xamma/apikube:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          # envFrom:
+          #   - secretRef: 
+          #       name: thumbsnail-secret
+          # env:
+          #   - name: TARGET
+          #     value: World
+          envFrom:
+            - configMapRef:
+                name: apikube-configmap

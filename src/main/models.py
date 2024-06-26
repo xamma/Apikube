@@ -1,11 +1,17 @@
-from pydantic import BaseModel
-from typing import List
+from pydantic_settings import BaseSettings
+# from typing import List
 
-class AppConfig(BaseModel):
-    """
-    This is the configuration Class for the App.
-    It uses pydantics BaseModel to declare the Types
-    and what happens, when the entry is not defined.
-    """
-    api_port : int | None = None
-    custom_message : str | None = None
+"""
+Configuration class for the app.
+Precendences:
+1. ENV Vars
+2. .env File
+3. Default Vars
+"""
+
+class AppSettings(BaseSettings):
+    api_port: int | None = 8000
+    custom_message: str | None = "Here could be your message"
+
+    class Config:
+        env_file = ".env"
