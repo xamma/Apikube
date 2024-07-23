@@ -1,0 +1,18 @@
+configmap:
+  apiPort: "8000"
+  customMessage: Running in default Env.
+depl:
+  backendContainer:
+    image:
+      repository: ghcr.io/xamma/apikube
+      tag: latest
+    imagePullPolicy: Always
+  replicas: 3
+kubernetesClusterDomain: cluster.local
+srv:
+  ports:
+  - name: backend
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  type: ClusterIP

@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apikube-ingress
+  namespace: techdemo
+  annotations:
+    cert-manager.io/cluster-issuer: cloudflare-prod
+    external-dns.alpha.kubernetes.io/target: xammaops.win
+    external-dns.alpha.kubernetes.io/hostname: apikube.xammaops.win
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  ingressClassName: "nginx"
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: apikube-srv
+            port:
+              number: 8000
+    host: apikube.xammaops.win
+  tls:
+  - hosts:
+    - apikube.xammaops.win
+    secretName: apikube-tls

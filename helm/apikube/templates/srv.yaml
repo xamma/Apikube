@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "apikube.fullname" . }}-srv
+  labels:
+  {{- include "apikube.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.srv.type }}
+  selector:
+    app: apikube
+  {{- include "apikube.selectorLabels" . | nindent 4 }}
+  ports:
+	{{- .Values.srv.ports | toYaml | nindent 2 }}

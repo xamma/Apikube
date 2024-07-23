@@ -1,0 +1,21 @@
+# Adds namespace to all resources.
+namespace: techdemo
+
+# Value of this field is prepended to the
+# names of all resources, e.g. a deployment named
+# "wordpress" becomes "alices-wordpress".
+# Note that it should also match with the prefix (text before '-') of the namespace
+# field above.
+namePrefix: tdak-
+
+# Labels to add to all resources and selectors.
+#labels:
+#- includeSelectors: true
+#  pairs:
+#    someName: someValue
+
+resources:
+- 02_configmap.yaml
+- 03_deployment.yaml
+- 04_service.yaml
+- 05_ingress.yaml

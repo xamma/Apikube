@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "apikube.fullname" . }}-depl
+  labels:
+  {{- include "apikube.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.depl.replicas }}
+  selector:
+    matchLabels:
+      app: apikube
+    {{- include "apikube.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: apikube
+      {{- include "apikube.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        envFrom:
+        - configMapRef:
+            name: {{ include "apikube.fullname" . }}-configmap
+        image: {{ .Values.depl.backendContainer.image.repository }}:{{ .Values.depl.backendContainer.image.tag
+          | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.depl.backendContainer.imagePullPolicy }}
+        name: backend-container
+        ports:
+        - containerPort: 8000
+        resources: {}
+      restartPolicy: Always

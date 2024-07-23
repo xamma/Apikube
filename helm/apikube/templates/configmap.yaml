@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "apikube.fullname" . }}-configmap
+  labels:
+  {{- include "apikube.labels" . | nindent 4 }}
+data:
+  API_PORT: {{ .Values.configmap.apiPort | quote }}
+  CUSTOM_MESSAGE: {{ .Values.configmap.customMessage | quote }}
