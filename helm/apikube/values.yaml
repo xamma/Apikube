@@ -16,3 +16,9 @@ srv:
     protocol: TCP
     targetPort: 8000
   type: ClusterIP
+ingress:
+  target: xammaops.win
+  host: apikube.xammaops.win
+  clusterIssuer: cloudflare-prod
+  ingressClassName: nginx
+  forceSslRedirect: "true"
