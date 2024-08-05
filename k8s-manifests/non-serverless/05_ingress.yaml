@@ -8,6 +8,10 @@ metadata:
     external-dns.alpha.kubernetes.io/target: xammaops.win
     external-dns.alpha.kubernetes.io/hostname: apikube.xammaops.win
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/auth-method: 'GET'
+    nginx.ingress.kubernetes.io/auth-url: 'http://authelia.default.svc.cluster.local/api/authz/auth-request'
+    nginx.ingress.kubernetes.io/auth-signin: 'https://auth.example.com?rm=$request_method'
+    nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
 spec:
   ingressClassName: "nginx"
   rules:

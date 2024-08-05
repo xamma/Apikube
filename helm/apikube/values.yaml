@@ -22,3 +22,7 @@ ingress:
   clusterIssuer: cloudflare-prod
   ingressClassName: nginx
   forceSslRedirect: "true"
+  authUrl: http://authelia.common.svc.cluster.local:8000/api/authz/auth-request
+  authSignin: https://auth.xammaops.win?rm=$request_method
+  authResponseHeaders: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+  authMethod: GET
