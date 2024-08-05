@@ -23,7 +23,7 @@ spec:
           service:
             name: '{{ include "apikube.fullname" . }}-srv'
             port:
-              number: {{ .Values.srv.ports[0].port }}
+              number: 8000
         path: /
         pathType: Prefix
   tls:
