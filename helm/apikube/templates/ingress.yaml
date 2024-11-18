@@ -19,7 +19,7 @@ spec:
           service:
             name: '{{ include "apikube.fullname" . }}-srv'
             port:
-              number: 8000
+              number: {{ .Values.ingress.portNumber }}
         path: /
         pathType: Prefix
   tls:

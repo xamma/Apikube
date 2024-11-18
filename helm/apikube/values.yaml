@@ -32,3 +32,4 @@ ingress:
         proxy_set_header X-Forwarded-Host $http_host;
   ingressClassName: nginx
   forceSslRedirect: "true"
+  portNumber: 8000
