@@ -1,3 +1,4 @@
+{{- if .Values.ingress_enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -5,14 +6,9 @@ metadata:
   labels:
   {{- include "apikube.labels" . | nindent 4 }}
   annotations:
-    cert-manager.io/cluster-issuer: {{ .Values.ingress.clusterIssuer }}
-    external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.host }}
-    external-dns.alpha.kubernetes.io/target: {{ .Values.ingress.target }}
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "{{ .Values.ingress.forceSslRedirect }}"
-    nginx.ingress.kubernetes.io/auth-method: "{{ .Values.ingress.authMethod }}"
-    nginx.ingress.kubernetes.io/auth-url: "{{ .Values.ingress.authUrl }}"
-    nginx.ingress.kubernetes.io/auth-signin: "{{ .Values.ingress.authSignin }}"
-    nginx.ingress.kubernetes.io/auth-response-headers: "{{ .Values.ingress.authResponseHeaders }}"
+    {{- with .Values.ingress.annotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   ingressClassName: {{ .Values.ingress.ingressClassName }}
   rules:
@@ -30,3 +26,4 @@ spec:
   - hosts:
     - {{ .Values.ingress.host }}
     secretName: apikube-tls
+{{- end }}
